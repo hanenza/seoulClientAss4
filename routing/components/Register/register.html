@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div ng-controller="registerController as registerCtrl">
+<form name="registerForm" ng-submit="registerCtrl.register(registerForm.$valid)"  >
+        <div class="container">
+          <h1>Register</h1>
+          <p> <h3> Please fill in this form to create an account: </h3> </p>
+          <hr>
+      
+          <div>
+          <label for="FirstName"><b>First Name:</b></label>
+          <input type="text"
+           ng-model="registerCtrl.userDetails.FirstName"
+           ng-required="true"
+           name="FirstName"
+           placeholder="Enter details">
+          </div>
+
+          <div>
+           <label for="LastName"><b>Last Name:</b></label>
+           <input type="text"
+           ng-model="registerCtrl.userDetails.LastName"
+           ng-required="true"
+           name="LastName"
+           placeholder="Enter details">
+          </div>
+          <div> 
+           <label for="Username"><b>Username:</b></label>
+           <input type="text"
+            ng-model="registerCtrl.userDetails.UserName"
+            ng-required="true"
+            name="UserName"
+            ng-minlength="3"
+            ng-maxlength="8"
+            ng-pattern="/^[a-zA-Z]*$/"
+            placeholder="Enter details">
+            <span ng-show="registerForm.UserName.$dirty && registerForm.UserName.$invalid">
+                <span ng-show="registerForm.UserName.$error.pattern">User name should contain only letters!</span>
+                <span ng-show="registerForm.UserName.$error.required">This field is required!</span>
+                <span ng-show="(registerForm.UserName.$dirty && (registerForm.UserName.$error.maxlength || registerForm.usernameInput.$error.minlength)) ">
+                    Username should be 3-8 letters.
+                </span>
+            </span>
+            </div>
+
+            <div>
+            <label for="Password"><b>Password:</b></label>
+            <input type="password"
+             ng-model="registerCtrl.userDetails.Password"
+             ng-required="true"
+             name="Password"
+             ng-minlength="5"
+             ng-maxlength="10"
+             ng-pattern=/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/
+             placeholder="Enter details">
+             <span ng-show="registerForm.Password.$dirty && registerForm.Password.$invalid">
+                <span ng-show="registerForm.Password.$error.pattern">Password should contain letters and numbers!</span>
+                <span ng-show="registerForm.Password.$error.required">This field is required!</span>
+                <span ng-show="((registerForm.Password.$error.minlength ||
+                   registerForm.Password.$error.maxlength) &&
+                   registerForm.Password.$dirty) ">
+                    Password should be 5-10 letters.
+                </span>
+            </span>
+             </div>
+                 
+             <div>
+             <label for="City"><b>City:</b></label>
+             <input type="text"
+              ng-model="registerCtrl.userDetails.City"
+              ng-required="true"
+              name="City"
+              placeholder="Enter details">
+              </div>
+              <div >
+                  <label>Country:</label> 
+                        <select  ng-model="registerCtrl.userDetails.Country"
+                        ng-options="country.Name for country in registerCtrl.mycountries | orderBy:'Name'"
+                       ></select>
+              </div>
+
+
+              <div>
+              <label for="Email"><b>Email:</b></label>
+              <input type="email"
+              ng-model="registerCtrl.userDetails.Email"
+              ng-required="true"
+              name="Email"
+              placeholder="Enter details">
+              <span  ng-show="registerForm.Email.$dirty && registerForm.Email.$invalid">
+                  <span ng-show="registerForm.Email.$error.required">Email is required.</span>
+                  <span ng-show="registerForm.Email.$error.email">Invalid email address.</span>
+              </span>
+              </div>
+
+              <div>
+              <label for="Question1"><b>First Question:</b></label>
+              
+              <select  ng-model="registerCtrl.userDetails.Questions[0]"
+              ng-options="question.QuestionDescription for question in registerCtrl.questions "
+              ng-required="true"
+              ></select>
+              </div>
+             
+
+              <div>
+              <label for="Answer1"><b>Answer:</b></label>
+              <input type="text"
+              ng-model="registerCtrl.userDetails.Answers[0]"
+              ng-required="true"
+              name="Answer1"
+              placeholder="Enter details">
+              </div>
+
+              <div>
+              <label for="Question2"><b>Second Question:</b></label>
+              <select  ng-model="registerCtrl.userDetails.Questions[1]"
+              ng-options="question.QuestionDescription for question in registerCtrl.questions "
+              ng-required="true"
+              ></select>
+              </div>
+
+              <div>
+              <label for="Answer2"><b>Answer:</b></label>
+              <input type="text"
+              ng-model="registerCtrl.userDetails.Answers[1]"
+              ng-required="true"
+              name="Answer2"
+              placeholder="Enter details">
+              </div>
+
+              <div ng-repeat="category in registerCtrl.myCategories">
+                <input type="checkbox" ng-model="category.selected"
+                  ng-click="toggleSelection($event)" 
+                  id="{{category.catagory_id}}"/> 
+                <label for="category.catagory_id"  ng-bind="category.catagory_id"></label>          
+              </div>
+
+              <input type="submit"
+              class="finish button"
+              value="Register"
+              ng-disabled="registerForm.$invalid">
+              
+      </form>
+    
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+
+<html ng-app="citiesApp">
+    <head><title>Cities App</title>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+            
+            li {
+                float: left;
+            }
+            
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            
+            li a:hover {
+                background-color: #111;
+            }
+
+            ul span {
+                float: right;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            </style>
+</head>
+    <body ng-controller="indexController as indxCtrl">
+     
+    
+            <ul>
+              <li><a href="#/">Home</a></li>
+              <li><a href="#/about">About</a></li>
+              <li><a href="#/POI">POI</a></li>
+              <li><a ng-hide="indxCtrl.isLoggedin" href="#/register">register</a></li>
+              <li ><a ng-show="indxCtrl.isLoggedin" href="#/favouritePOI">Favourite List</a></li>
+              <li ><a ng-show="indxCtrl.isLoggedin" ng-click="indxCtrl.logOut()" >Log out</a></li>
+            
+              <span ng-model="indxCtrl.userName"> Hello {{indxCtrl.userName}} </span>
+            </ul>
+            
+        <br>
+        <br>
+        <div  ng-view></div>
+
+
+    </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>       
+        <script src="app.js" ></script>
+        <script src="indexController.js" ></script>
+        <script src="components/Services/serviceController.js" ></script>
+        <script src="components/Services/localStorageModel.js"></script>
+        <script src="components/Register/registerController.js" ></script>
+        <script src="components/Home/homeController.js" ></script>
+        <script src="components/POI/poiController.js" ></script>
+        <script src="components/favouritePOI/favouritePoiController.js" ></script>
+        <script src="shared/UserServices.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="assets/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+        <link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+         
+    </body>
+    </html>
+    
+    
+
+    

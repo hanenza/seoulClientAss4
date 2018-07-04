@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+        <div class="container" ng-controller="homeController as homeController">
+      
+      <div ng-hide= "indxCtrl.isLoggedin">   
+
+         <h1> Hello Guest</h1>
+         
+         <P> Already have an account? Sign in here:</P>
+       
+         <div class="login-form">
+                <form name="loginForm" ng-submit="homeController.login(loginForm.$valid)" novalidate>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text"
+                               ng-model="homeController.User.Username"
+                               ng-required="true"
+                               class="form-control"
+                               name="usernameInput"
+                               placeholder="Enter details">
+                        <p ng-show="loginForm.usernameInput.$invalid" class="help-block">username is required</p>
+    
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                      
+                        <p ng-show="loginForm.passwordInput.$invalid" class="help-block">Password is required</p>
+                    </div>  <input type="password"
+                               ng-model="homeController.User.Password"
+                               ng-required="true"
+                               class="form-control"
+                               name="passwordInput"
+                               placeholder="Enter details">
+                 
+                     <div style="text-align: left">
+                        <input type="submit"
+                               class="btn btn-success btn-lg"
+                               value="Login"
+                               ng-disabled="loginForm.$invalid">
+                     </div>
+                </form>
+               </div>
+             
+
+                <P> Don't have an account? Sign up here:</P>
+
+                <button onclick="location.href = '#/register';" id="registerButton" class="float-left submit-button" >Sign up page</button>
+                </br>
+                </br>
+                  Forgot your password? Mark this and Retrieve your password: <input type="checkbox" ng-model="retreivePW">
+                 <div ng-show="retreivePW">
+                   <form>
+
+                        <label>Username</label>
+                        <input type="text"
+                        ng-model="homeController.Username"
+                        ng-required="true"
+                        class="form-control"
+                        placeholder="Enter details">
+
+                      </br>
+                        <label>One of the questions you registered with:</label>
+                
+                        <select  ng-model="homeController.QuestionID"
+                         ng-options="question.QuestionDescription for question in homeController.questions "
+                         ng-required="true"
+                         ></select>
+                      </br>
+                        <label>Your answer</label>
+                        <input type="text"
+                        ng-model="homeController.Answer"
+                        ng-required="true"
+                        class="form-control"
+                        placeholder="Enter details">
+                          
+                      </br>
+                      <button ng-click="homeController.retreivePassword()">OK</button>
+
+                    </form>
+             
+             </div>
+            </div> 
+             <div ng-show="indxCtrl.isLoggedin">
+             <h2> Your 2 recent saved Points of Interest:</h2>
+             <div ng-show="homeController.hasSavedPoi">
+             <table >
+                    <tr ng-repeat="poi in homeController.twoRecentPoi">   
+                                             
+                         
+                          <td>        
+                            <br> <a data-toggle="modal" data-target="#myModalCategory"  ng-click="homeController.show2Recent($index,poi.ID)"> {{poi.Name}}</a>
+                         </td> 
+                          <td>
+                            <a data-toggle="modal" data-target="#myModalCategory" ng-click="homeController.show2Recent($index,poi.ID)"> <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>                                               
+                          </td>
+                          
+                                                                         
+                          </tr>    
+                                                                                                    
+                   </table>
+              </div>
+              <div ng-hide="homeController.hasSavedPoi">
+                  You haven't saved any points of Interest!
+              </div>
+
+                   <h2> Your top 2 Points of Interest:</h2>
+                   <table >
+                      
+                        <tr ng-repeat="poi in homeController.top2Poi">   
+                                                 
+                             
+                              <td>        
+                                <br> <a data-toggle="modal" data-target="#myModalCategory"  ng-click="homeController.showTop2($index,poi.ID)"> {{poi.Name}}</a>                                                         
+                             </td> 
+                              <td>
+                                <a data-toggle="modal" data-target="#myModalCategory" ng-click="homeController.showTop2($index,poi.ID)"> <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>  
+                                         
+                              </td>
+                              
+                                                                             
+                              </tr>    
+                                                                                                        
+                       </table>   
+                  </div>
+
+            <div ng-hide= "indxCtrl.isLoggedin">   
+           <h2> 3 popular Points Of Interests!</h2>
+           <table ng-repeat="poi in homeController.top3">
+                <tr >                                
+                         <td>        
+                           <br> <a data-toggle="modal" data-target="#myModalCategory"  ng-click="homeController.showTopThree($index,poi.ID)"> {{poi.Name}}</a>
+                       
+                            </td>
+                            <td>                     
+                                <a data-toggle="modal" data-target="#myModalCategory" ng-click="homeController.showTopThree($index,poi.ID)"> <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>  
+                         </td> 
+                         <td>
+                                          
+                           <br>
+                            </td>
+                                                          
+                 </tr>    
+                                                                       
+             </table>
+             </div>
+                <div class="modal fade" id="myModalCategory" role="dialog">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                    <h3> Description:</h3>
+                    {{ homeController.currentPoi.Descreption}}
+                     </br>
+                     <h3> Number Of Viewers:</h3>
+                     {{homeController.currentPoi.NumberOFViewers}}
+                     </br>
+                     <h3> Current Ranking:</h3>
+                     {{homeController.currentPoi.Ranking}}
+                    <h3> First Review:</h3>
+                    {{homeController.reviews1}}
+                     <h4> Publish date:</h4>
+                     {{homeController.date1}}
+                                    
+                     <h3> Second Review:</h3>
+                     {{homeController.reviews2}}
+                   
+                    <h4> Publish date:</h4>
+                     {{homeController.date2}}
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                      </div>                                              
+                      </div>
+                      </div>
+                      </div> 
+                      </div>       
+         </div>
+
+</body>
+</html>

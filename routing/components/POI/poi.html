@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+ <div class="container" ng-controller="poiController as poiController">
+              <div ng-show = "poiController.isLoggedIn">
+                 <a onclick="location.href = '#/favouritePOI';" >  <h1> My favourite List: <img  height="70" width="70" src="pictures/favouriteList.jpg" alt="pic" /> </h1></a>                   
+                  You currently have  <p ng-bind ="indxCtrl.count" > </p>points in your favourite list!
+               </div>
+             <h2> Points of Interest available:</h2><br><br>
+            
+            
+            
+            </div>
+            <label>Filter by category:</label> 
+            <select ng-model="poiController.filterCategory" ng-options="category.catagory_id for category in poiController.categories"
+            ></select> 
+             <button ng-click="poiController.filterByCategory()"> OK </button>
+             <button ng-click="poiController.showAllCategories()">Show All Poi's </button>
+             OrderBy Ranking: <input type="checkbox" ng-click="poiController.byRanking()" ng-model="RankPoi">
+                 <a ng-click="poiController.byRanking()"></a>
+             <div ng-show="poiController.showRankingBoolean1">
+                 <table >
+                 <tr>
+                 <td>
+                 Name
+                 </td>
+                 <td>
+                  Picture
+                 </td>
+                 <td>
+                   Category
+                 </td>
+                 </tr>
+                 <tr ng-repeat="poi in poiController.pois | orderBy:'-Ranking'">
+                 <td ng-show="poiController.isLoggedIn"> 
+                 <div ng-hide="poiController.savedPOI[poi.ID]">
+                 <a ng-click="poiController.savePOI(poi.ID)">  <img  height="30" width="30" src="pictures/unSave.png" alt="pic" /></a>
+                 </div>
+                 <div ng-show="poiController.savedPOI[poi.ID]">
+                 <a ng-click="poiController.deletePOI(poi.ID)">  <img  height="60" width="60" src="pictures/savePOI.png" alt="pic" /></a>
+                 </div>    
+                 </td>                                
+                 <td>        
+                 <br><a data-toggle="modal" data-target="#myModalRank" ng-click="poiController.showDetails($index,poi.ID)">  {{poi.Name}}</a>                        
+                 </td>
+                 <td>
+                 <a data-toggle="modal" data-target="#myModalRank" ng-click="poiController.showDetails($index,poi.ID)">    <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>                           
+                 </td>
+                 <td>
+                 {{poi.CatagoryID}}
+                 </td>                                  
+                 </tr>                                                                
+                 </table>
+                 <div class="modal fade" id="myModalRank" role="dialog">
+                 <div class="modal-dialog">
+                 <div class="modal-content">
+                 <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Modal Header</h4>
+                 </div>
+                 <div class="modal-body">
+                 <h3> Description:</h3>
+                 {{ poiController.currentPoi.Descreption}}
+                 </br>
+                 <h3> Number Of Viewers:</h3>
+                 {{poiController.currentPoi.NumberOFViewers}}                                             
+                 </br>                                            
+                 <h3> Current Ranking:</h3>
+                 {{poiController.currentPoi.Ranking}}                                   
+                 <h3> First Review:</h3>
+                 {{poiController.reviews1}}
+                 <h4> Publish date:</h4>
+                 {{poiController.date1}}                       
+                 <h3> Second Review:</h3>
+                 {{poiController.reviews2}}
+                 <h4> Publish date:</h4>
+                 {{poiController.date2}}
+                 </div>
+                 <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 </div>
+                 </div>                                              
+                 </div>
+                 </div>
+                 </div> 
+                 </div>       
+                                                  
+            </div>
+        
+            <div>
+             
+           
+            <a ng-click="poiController.byCategory()" ></a>
+                   <div ng-show="poiController.showRankingBoolean2">   
+             <div>
+            <table >
+                <tr>
+                         <td>
+                                Name
+                         </td>
+                          <td>
+                                Picture
+                          </td>
+                           <td>
+                                Category
+                           </td>   
+                </tr>
+                    <tr ng-repeat="poi in poiController.pois | orderBy:'CatagoryID'">   
+                            
+                                <td ng-show="poiController.isLoggedIn">
+                                    <div ng-hide="poiController.savedPOI[poi.ID]">
+                                    <a ng-click="poiController.savePOI(poi.ID)">  <img  height="30" width="30" src="pictures/unSave.png" alt="pic" /></a>
+                                    </div> 
+                                    <div ng-show="poiController.savedPOI[poi.ID]">
+                                    <a ng-click="poiController.deletePOI(poi.ID)">  <img  height="60" width="60" src="pictures/savePOI.png" alt="pic" /></a>
+            
+                                     </div>    
+                                </td>                             
+                             <td>        
+                                    <br>    <br> <a data-toggle="modal" data-target="#myModalCategory"  ng-click="poiController.showDetails($index,poi.ID)"> {{poi.Name}}</a>
+                                    
+                             </td> 
+                              <td>
+                                <a data-toggle="modal" data-target="#myModalCategory" ng-click="poiController.showDetails($index,poi.ID)"> <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>                       
+                            </td>
+                            <td>
+                                    {{poi.CatagoryID}}
+                                </td>                                  
+                     </tr>    
+                                                                                   
+                    </table>
+                    <div class="modal fade" id="myModalCategory" role="dialog">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Point of Interest Info</h4>
+                        </div>
+                        <div class="modal-body">
+                        <h3> Description:</h3>
+                        {{ poiController.currentPoi.Descreption}}
+                        </br>
+                        <h3> Number Of Viewers:</h3>
+                        {{poiController.currentPoi.NumberOFViewers}}                                             
+                        </br>                                            
+                        <h3> Current Ranking:</h3>
+                        {{poiController.currentPoi.Ranking}}                                   
+                        <h3> First Review:</h3>
+                        {{poiController.reviews1}}
+                        <h4> Publish date:</h4>
+                        {{poiController.date1}}
+                                         
+                        <h3> Second Review:</h3>
+                        {{poiController.reviews2}}
+                        
+                        <h4> Publish date:</h4>
+                        {{poiController.date2}}
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>                                              
+                        </div>
+                        </div>
+                        </div> 
+                        </div>       
+        </div>
+       </div>   
+        </div>
+        </div>
+
+
+</body>
+</html>
