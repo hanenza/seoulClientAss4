@@ -3,23 +3,27 @@
 <body>
 
  <div class="container" ng-controller="poiController as poiController">
+        <div class="transbox"> 
               <div ng-show = "poiController.isLoggedIn">
-                 <a onclick="location.href = '#/favouritePOI';" >  <h1> My favourite List: <img  height="70" width="70" src="pictures/favouriteList.jpg" alt="pic" /> </h1></a>                   
+                 <a onclick="location.href = '#/favouritePOI';" >  <h1> My favourite List: <img  height="70" width="70" src="pictures/favouriteList.jpg" alt="pic"/> </h1></a>                   
                   You currently have  <p ng-bind ="indxCtrl.count" > </p>points in your favourite list!
                </div>
-             <h2> Points of Interest available:</h2><br><br>
-            
-            
-            
-            </div>
-            <label>Filter by category:</label> 
-            <select ng-model="poiController.filterCategory" ng-options="category.catagory_id for category in poiController.categories"
-            ></select> 
-             <button ng-click="poiController.filterByCategory()"> OK </button>
-             <button ng-click="poiController.showAllCategories()">Show All Poi's </button>
-             OrderBy Ranking: <input type="checkbox" ng-click="poiController.byRanking()" ng-model="RankPoi">
-                 <a ng-click="poiController.byRanking()"></a>
-             <div ng-show="poiController.showRankingBoolean1">
+             <h2 class="hedaers"> Points of Interest available:</h2><br><br>                
+             <label>Filter by category:</label> 
+             <select ng-model="poiController.filterCategory" ng-options="category.catagory_id for category in poiController.categories">
+             </select> 
+             <button class="btn btn-success btn-lg" ng-click="poiController.filterByCategory()"> OK </button>
+             <br>
+             <br>
+             <button class="btn btn-success btn-lg" ng-click="poiController.showAllCategories()">Show All Poi's </button>
+             <br>
+             <br>
+            <label> OrderBy Ranking:</label>
+             <input type="checkbox" ng-click="poiController.byRanking()" ng-model="RankPoi">
+             <a ng-click="poiController.byRanking()"></a>
+             </div>
+             <div class="transbox"> 
+             <div ng-show="poiController.showRankingBoolean1" >
                  <table >
                  <tr>
                  <td>
@@ -83,9 +87,7 @@
                  </div>                                              
                  </div>
                  </div>
-                 </div> 
-                 </div>       
-                                                  
+                                        
             </div>
         
             <div>
@@ -169,7 +171,7 @@
        </div>   
         </div>
         </div>
-
+    
 
 </body>
 </html>

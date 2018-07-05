@@ -3,17 +3,17 @@
 <body>
 
         <div class="container" ng-controller="homeController as homeController">
-      
+
       <div ng-hide= "indxCtrl.isLoggedin">   
 
-         <h1> Hello Guest</h1>
-         
+         <h1 class="hedaers">Weclcome To Seoul</h1>
+         <hr/>
          <P> Already have an account? Sign in here:</P>
        
          <div class="login-form">
                 <form name="loginForm" ng-submit="homeController.login(loginForm.$valid)" novalidate>
                     <div class="form-group">
-                        <label>Username</label>
+                        <label for="usernameInput">Username</label>
                         <input type="text"
                                ng-model="homeController.User.Username"
                                ng-required="true"
@@ -24,40 +24,42 @@
     
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                      
+                        <label for="passwordInput">Password</label>
                         <p ng-show="loginForm.passwordInput.$invalid" class="help-block">Password is required</p>
-                    </div>  <input type="password"
+                  
+                    <input type="password"
                                ng-model="homeController.User.Password"
                                ng-required="true"
                                class="form-control"
                                name="passwordInput"
                                placeholder="Enter details">
-                 
-                     <div style="text-align: left">
+                 </div>
+                    <br>
                         <input type="submit"
                                class="btn btn-success btn-lg"
                                value="Login"
                                ng-disabled="loginForm.$invalid">
-                     </div>
+                     
                 </form>
                </div>
              
 
                 <P> Don't have an account? Sign up here:</P>
 
-                <button onclick="location.href = '#/register';" id="registerButton" class="float-left submit-button" >Sign up page</button>
+                <button onclick="location.href = '#/register';" class="btn btn-success btn-lg" id="registerButton" class="float-left submit-button" >Sign up page</button>
                 </br>
                 </br>
                   Forgot your password? Mark this and Retrieve your password: <input type="checkbox" ng-model="retreivePW">
                  <div ng-show="retreivePW">
-                   <form>
+                  
+                  <form>
 
-                        <label>Username</label>
+                        <label for"us">Username</label>
                         <input type="text"
                         ng-model="homeController.Username"
                         ng-required="true"
                         class="form-control"
+                        name="us"
                         placeholder="Enter details">
 
                       </br>
@@ -67,7 +69,8 @@
                          ng-options="question.QuestionDescription for question in homeController.questions "
                          ng-required="true"
                          ></select>
-                      </br>
+                      <br>
+                      <br>
                         <label>Your answer</label>
                         <input type="text"
                         ng-model="homeController.Answer"
@@ -76,12 +79,12 @@
                         placeholder="Enter details">
                           
                       </br>
-                      <button ng-click="homeController.retreivePassword()">OK</button>
+                      <button class="btn btn-success btn-lg" ng-click="homeController.retreivePassword()">OK</button>
 
                     </form>
              
              </div>
-            </div> 
+             
              <div ng-show="indxCtrl.isLoggedin">
              <h2> Your 2 recent saved Points of Interest:</h2>
              <div ng-show="homeController.hasSavedPoi">
@@ -126,23 +129,18 @@
                   </div>
 
             <div ng-hide= "indxCtrl.isLoggedin">   
-           <h2> 3 popular Points Of Interests!</h2>
+           <h2 class="h2font" > 3 popular Points Of Interests!</h2>
            <table ng-repeat="poi in homeController.top3">
                 <tr >                                
                          <td>        
-                           <br> <a data-toggle="modal" data-target="#myModalCategory"  ng-click="homeController.showTopThree($index,poi.ID)"> {{poi.Name}}</a>
-                       
+                            <a data-toggle="modal" data-target="#myModalCategory"  ng-click="homeController.showTopThree($index,poi.ID)"> {{poi.Name}}</a>
                             </td>
+                        </tr>
+                        <tr>    
                             <td>                     
                                 <a data-toggle="modal" data-target="#myModalCategory" ng-click="homeController.showTopThree($index,poi.ID)"> <img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>  
-                         </td> 
-                         <td>
-                                          
-                           <br>
-                            </td>
-                                                          
-                 </tr>    
-                                                                       
+                         </td>                                                     
+                 </tr>                                                             
              </table>
              </div>
                 <div class="modal fade" id="myModalCategory" role="dialog">
@@ -180,7 +178,7 @@
                       </div>
                       </div> 
                       </div>       
-         </div>
+
 
 </body>
 </html>

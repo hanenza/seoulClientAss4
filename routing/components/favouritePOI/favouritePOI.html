@@ -2,18 +2,16 @@
 <html>
 <body>
         <div class="container" ng-controller="favouritePoiController as favouritePoiController">
-                <h1> My favourite Points of Interests:</h1>
+                <h1 class="hedaers"> My favourite Points of Interests:</h1>
                 <div ng-hide="favouritePoiController.showRankingBoolean1 ||favouritePoiController.showRankingBoolean2">
                 <h3> Want to choose the order of your points of interests?</h3> 
                 <div ng-show="favouritePoiController.wantToOrder"> 
-                        click on the "click me" button in the order you  want to display your points of interest (you must choose all of them)
-                        <button ng-click="favouritePoiController.OrderPointsOfInterestManually()"> Order</button>
-                </div>
+                     <label> click on the "click me" button in the order you  want to display your points of interest (you must choose all of them)</label>
+               <br> 
+              <button ng-click="favouritePoiController.OrderPointsOfInterestManually()"> Order</button>
+        </div>
                <input type="checkbox" id="orderCheckbox" ng-click="favouritePoiController.wantToOrderFunc()" ng-model="RankPoi">
-
-                
-                <table >
-                    
+                <table >    
                    <tr ng-repeat="poi in favouritePoiController.userPois">   
                           <td ng-hide= "favouritePoiController.currentlySaved[poi.ID]">        
                              <a ng-hide="favouritePoiController.wantToOrder" ng-click="favouritePoiController.savePOI(poi.ID)"> <img height="60" width="60"  src="pictures/save.png"></a>  
