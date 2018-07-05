@@ -25,8 +25,7 @@
                          <td><br><a data-toggle="modal" data-target="#orderModal" ng-click="favouritePoiController.showDetails($index,poi.ID)">  {{poi.Name}}</a>  
                                                     
                         </td> 
-                         <td>
-                               <a data-toggle="modal" data-target="#orderModal" ng-click="favouritePoiController.showDetails($index,poi.ID)"><img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>
+                          <a data-toggle="modal" data-target="#orderModal" ng-click="favouritePoiController.showDetails($index,poi.ID)"><img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>
                                               
                          </td>
                          <td ng-show="favouritePoiController.wantToOrder">
