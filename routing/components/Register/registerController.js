@@ -73,8 +73,6 @@ angular.module('citiesApp')
 */
         self.userDetails.Questions[0]=question1.QuestionID;
         self.userDetails.Questions[1]=question2.QuestionID;
-
-
         self.userDetails.Country = self.userDetails.Country.Name; 
         $http.post('http://localhost:5050/Users/Register',self.userDetails).then(function (response) {
             
