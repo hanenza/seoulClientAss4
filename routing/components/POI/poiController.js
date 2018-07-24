@@ -22,9 +22,30 @@ angular.module('citiesApp')
     self.isLoggedIn;
     self.poiTobeSaved=''
     self.serena=0;
-    
+    self.showMap=false;
+    self.map=null;
   
+    self.myMap=function(){
+      
+       self.map = L.map('map').setView([51.505, -0.09], 13);
+        
+      L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(self.map);
+      
+      L.marker([self.currentPoi.x , self.currentPoi.y]).addTo(self.map)
+          .bindPopup(self.currentPoi.Name+"")
+          .openPopup();
+          self.showMap=true;
+    }
+    
+    self.hideMap=function(){
 
+      self.showMap=false;
+      if(self.map !== undefined || self.map !== null) {
+        self.map.remove();
+      }
+    }
     //get all points of interests
     $http.get('http://localhost:5050/Poi/AllPointsOfInterest').then(function (response) {
         self.pois = response.data;
@@ -228,13 +249,21 @@ angular.module('citiesApp')
          */
        };
 
+       self.showCat=function(poiID){
+        self.showDetails(poiID);
+        self.showMap=false;
+        if(self.map !== undefined || self.map !== null) {
+          self.map.remove();
+        }
 
-      self.showDetails= function(index,poiID){
+    }
+      self.showDetails= function(poiID){
+      
       var addViewers=false;
       self.reviews1=null
       self.reviews2=null;
       self.date1=null;
-       self.date2=null;
+      self.date2=null;
         if (self.showPOI[poiID]==false){
 
           var i;
@@ -258,8 +287,7 @@ angular.module('citiesApp')
             self.showPOI[poiID]=false;
 
         }
-
-      
+    
      //raise the number of viewers for this point of interest by one
     if (addViewers==true){
       $http.get('http://localhost:5050/Poi/viewPointOfInterest/'+poiID).then(function (response) {
@@ -272,7 +300,7 @@ angular.module('citiesApp')
        //get the review and dates
     if (addViewers==true){
       $http.get('http://localhost:5050/Poi/PointOfInterestInfo/'+poiID).then(function (response) {
-        
+        self.currentPoi.NumberOFViewers=response.data[0].NumberOFViewers;
        if (response.data[1]){
            self.reviews1=response.data[1].ReviewDescription;
            self.date1=response.data[1].date+"";

@@ -193,7 +193,7 @@ font-size: 40
     margin-bottom: 10px;
 }
 .h2font{
-    font-family:"Bernard MT Condensed";
+    font-family:"Comic Sans MS";
     font-size: 22px;
 }
 div.background {
@@ -204,6 +204,9 @@ div.background {
      font-family: 'Comic Sans MS';
      text-align:"center";
  } 
+
+
+
  label{
     font-family: 'Comic Sans MS';
  }
@@ -214,6 +217,54 @@ div.background {
     opacity: 0.6;
     filter: alpha(opacity=60); /* For IE8 and earlier */
   }
+section {
+    position: absolute;
+    top: 110px;
+    left: 210;
+    width: 450;
+    height: 400;
+    background: url("pictures/seoul.gif");
+}
+footer{
+    position: absolute;
+    top:520;
+    left:565px;
+}
+cent{
+    position: absolute;
+    top: 80;
+    left: 50;
+    width: 450;
+    height: 400; 
+    
+}
+.rev{
+    background-color: #148fb8;
+}
+.myfn{
+    font-family:' sans-serif';
+    font-size: 22px;
+    color:	#2985a3;
+}
+.fn2{
+    font-family:'Eras Medium ITC';
+    font-size: 22px;
+    left:0;
+}
+aside {
+    
+    position: absolute;
+    top: 110px;
+    left: 1095;
+    width: 450;
+    height: 400;
+    text-align: center;
+    background-image: url("pictures/se2.gif")
+}
+pic{
+    position: absolute;
+   
+}
   div.notblack{
     margin: 30px;
     background-color: #e6f2ff;
@@ -230,7 +281,8 @@ div.background {
     border: 1px dotted #ccc;
     margin: 2%;
 }
-
+.inset {border-style: inset;}
+.dotted {border-style: dotted;}
 .qty {
     width: 40px;
     height: 25px;

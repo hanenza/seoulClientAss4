@@ -22,7 +22,30 @@ angular.module('citiesApp')
     self.reviews2='';
     self.date1='';
     self.date2='';
- 
+    self.showMap=false;
+    self.map=null;
+  
+    self.myMap=function(){
+      
+       self.map = L.map('map').setView([51.505, -0.09], 13);
+        
+      L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(self.map);
+      
+      L.marker([self.currentPoi.x , self.currentPoi.y]).addTo(self.map)
+          .bindPopup(self.currentPoi.Name+"")
+          .openPopup();
+          self.showMap=true;
+    }
+    
+    self.hideMap=function(){
+
+      self.showMap=false;
+      if(self.map !== undefined || self.map !== null) {
+        self.map.remove();
+      }
+    }
 
     $http.get('http://localhost:5050/Poi/ThreeMostPopular/80').then(function (response) {
       var returnData = response.data;
@@ -33,7 +56,7 @@ angular.module('citiesApp')
         self.isLoggedin=true;
         self.TwoRecentPointsOfInterest();
         self.Top2PointsOfInterest();
-
+       
 
       }
 
@@ -189,12 +212,26 @@ angular.module('citiesApp')
         self.showTop2=function(index,poiID){
         
           self.showDetails(index,poiID,1);
+          self.showMap=false;
+          if(self.map !== undefined || self.map !== null) {
+            self.map.remove();
+          }
         }
         self.show2Recent=function(index,poiID){
           self.showDetails(index,poiID,2);
+          self.showMap=false;
+          if(self.map !== undefined || self.map !== null) {
+            self.map.remove();
+          }
         }
         self.showTopThree=function(index,poiID){
           self.showDetails(index,poiID,3);
+
+          self.showMap=false;
+          if(self.map !== undefined || self.map !== null) {
+            self.map.remove();
+          }
+          
         }
         self.showDetails= function(index,poiID,arrName){
           self.reviews1=null
@@ -246,7 +283,7 @@ angular.module('citiesApp')
            //get the review and dates
         if (addViewers==true){
           $http.get('http://localhost:5050/Poi/PointOfInterestInfo/'+poiID).then(function (response) {
-
+              self.currentPoi.NumberOFViewers=response.data[0].NumberOFViewers;
               if(response.data[1]){
                self.reviews1=response.data[1].ReviewDescription;
                self.date1=response.data[1].date+"";

@@ -255,7 +255,7 @@ router.post('/Register', function (req, res) {
     });
 
     function addFavoriteCategories(Username, categories)
-{
+    {
 
     let sql = "INSERT into [UsersCatagories] (Username, catagory_id) values";
     for(var i = 0; i < categories.length; i++)
@@ -264,7 +264,7 @@ router.post('/Register', function (req, res) {
     }
     sql = sql.substring(0,sql.length-1);
     return sql;
-};
+    };
 
 
 function addUserQuestionsAnswers(Username, questions, answers)

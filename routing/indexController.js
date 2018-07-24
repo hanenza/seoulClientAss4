@@ -14,7 +14,6 @@ angular.module('citiesApp')
 
             $http.get('http://localhost:5050/RegisteredUsers/OrderedPointsOfInterest').then(function (response) {
             
-
                 //self.msg=self.response.data;
        
                 if (response.data=='Invalid token!' || response.data=='Invalid token'){

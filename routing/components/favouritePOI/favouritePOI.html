@@ -8,7 +8,7 @@
                 <div ng-show="favouritePoiController.wantToOrder"> 
                      <label> click on the "click me" button in the order you  want to display your points of interest (you must choose all of them)</label>
                <br> 
-              <button ng-click="favouritePoiController.OrderPointsOfInterestManually()"> Order</button>
+              <button ng-click="favouritePoiController.OrderPointsOfInterestManually()" class="btn btn-success btn-lg" > Order</button>
         </div>
                <input type="checkbox" id="orderCheckbox" ng-click="favouritePoiController.wantToOrderFunc()" ng-model="RankPoi">
                 <table >    
@@ -25,6 +25,7 @@
                          <td><br><a data-toggle="modal" data-target="#orderModal" ng-click="favouritePoiController.showDetails($index,poi.ID)">  {{poi.Name}}</a>  
                                                     
                         </td> 
+                        <td>
                           <a data-toggle="modal" data-target="#orderModal" ng-click="favouritePoiController.showDetails($index,poi.ID)"><img ng-style="{'height': '100px'}"  ng-src="{{poi.Picture}} "></a>
                                               
                          </td>
@@ -53,7 +54,7 @@
                                 <div class="modal-body">
                                                 Write a review: <input type="text" ng-model="favouritePoiController.currentReview">
                                           
-                                                <a ng-click="favouritePoiController.reviewPoi(favouritePoiController.tmpID)"> <img height="70" width="70"  src="pictures/review.jpg"></a>  
+                                                <button class=rev ng-click="favouritePoiController.reviewPoi(favouritePoiController.tmpID)"> Review it</button>  
                                                  </br>
                                                 <select  ng-model="favouritePoiController.currentRank">
                                                   <option value='1'> 1</option>
@@ -63,7 +64,7 @@
                                                   <option value='5'> 5</option>
                        
                                                 </select>
-                                                <a ng-click="favouritePoiController.rankPoi(favouritePoiController.tmpID)"> <img height="70" width="70"  src="pictures/ok.png"></a>  
+                                                <button class=rev ng-click="favouritePoiController.rankPoi(favouritePoiController.tmpID)">Rank it </button> 
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -98,6 +99,8 @@
                                         <h4> Publish date:</h4>
                                         {{favouritePoiController.date2}}
                                         </div>
+                                        <button ng-hide="favouritePoiController.showMap" ng-click="favouritePoiController.myMap()"> Show on Map</button>
+                                        <div ng-show="favouritePoiController.showMap" id="map"></div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
@@ -172,6 +175,8 @@
                                                         <h4> Publish date:</h4>
                                                         {{favouritePoiController.date2}}
                                                         </div>
+                                                        <button ng-hide="favouritePoiController.showMap" ng-click="favouritePoiController.myMap()"> Show on Map</button>
+                                                        <div ng-show="favouritePoiController.showMap" id="map"></div>
                                                         <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         </div>
@@ -245,6 +250,8 @@
                                         <h4> Publish date:</h4>
                                         {{favouritePoiController.date2}}
                                         </div>
+                                        <button ng-hide="favouritePoiController.showMap" ng-click="favouritePoiController.myMap()"> Show on Map</button>
+                                        <div ng-show="favouritePoiController.showMap" id="map"></div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>

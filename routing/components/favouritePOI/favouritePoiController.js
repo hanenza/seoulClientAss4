@@ -25,6 +25,30 @@ angular.module('citiesApp')
        self.date2='';
        self.showPOI=[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
        
+       self.showMap=false;
+       self.map=null;
+     
+       self.myMap=function(){
+         
+          self.map = L.map('map').setView([51.505, -0.09], 13);
+           
+         L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+         }).addTo(self.map);
+         
+         L.marker([self.currentPoi.x , self.currentPoi.y]).addTo(self.map)
+             .bindPopup(self.currentPoi.Name+"")
+             .openPopup();
+             self.showMap=true;
+       }
+       
+       self.hideMap=function(){
+   
+         self.showMap=false;
+         if(self.map !== undefined || self.map !== null) {
+           self.map.remove();
+         }
+       }
        //gets the favorite poi's of the user               
         $http.get('http://localhost:5050/RegisteredUsers/UserPointsOfInterest').then(function (response) {
 
@@ -159,9 +183,17 @@ angular.module('citiesApp')
                
                 self.byCategory=function(){
                     self.showRanking(2);
+                    self.showMap=false;
+                    if(self.map !== undefined || self.map !== null) {
+                      self.map.remove();
+                    }
                   }
                   self.byRanking=function(){
                     self.showRanking(1);
+                    self.showMap=false;
+                    if(self.map !== undefined || self.map !== null) {
+                      self.map.remove();
+                    }
                   }
                   self.showRanking= function(id){
                    
@@ -253,7 +285,7 @@ angular.module('citiesApp')
                          //get the review and dates
                       if (addViewers==true){
                         $http.get('http://localhost:5050/Poi/PointOfInterestInfo/'+poiID).then(function (response) {
-                          
+                          self.currentPoi.NumberOFViewers=response.data[0].NumberOFViewers;
                          if (response.data[1]){
                              self.reviews1=response.data[1].ReviewDescription;
                              self.date1=response.data[1].date+"";

@@ -83,7 +83,8 @@ angular.module('citiesApp')
            //     self.userDetails.Country = self.userDetails.Country.Name;}
            
            if (response.data=='Registered succsefuly!'){
-            $window.alert(response.data+"")
+            $window.alert(response.data+"");
+            $scope.indxCtrl.count=0;
             /*
             $scope.indxCtrl.userName= self.userDetails.UserName;
             $scope.indxCtrl.isLoggedin=true;
